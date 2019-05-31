@@ -19,6 +19,8 @@ $databaseTest = ($db->query('SELECT * FROM first_deploy'))->fetchAll(PDO::FETCH_
 <body>
     <h1><?= $test ?></h1>
 
+    <p>Docker + PHP + MYSQL + NGINX</p>
+
     <? foreach ($databaseTest as $row): ?>
         <p>Hello, <?= $row->first_name ?></p>
     <? endforeach; ?>
