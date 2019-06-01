@@ -3,14 +3,18 @@ version: '3'
 services: 
 
   web:
-    image: nginx:latest
+    image: us.icr.io/bmorenos-smanagement/bmorenos/smanagement:nginx_http_server
+    deploy:
+      replicas: 5
+      restart_policy:
+        condition: on-failure
     ports:
-      - "8080:80"
+      - "80:80"
     volumes: 
       - ../src:/code
       - ./nginx/conf.d/site.conf:/etc/nginx/conf.d/default.conf
     networks: 
-      - app-network
+      - webnet
 
   php:
     build: ./php 
@@ -18,7 +22,7 @@ services:
       - ../src:/code
       - ./php/conf/log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
     networks: 
-      - app-network
+      - webnet
 
   database:
     build: ./database
@@ -30,8 +34,7 @@ services:
     volumes: 
       - ./database/data.sql:/docker-entrypoint-initdb.d/mysql-dump.sql
     networks: 
-      - app-network
+      - webnet
 
 networks:
-  app-network:
-    driver: bridge
+  webnet:
