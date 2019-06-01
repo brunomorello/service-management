@@ -3,7 +3,7 @@ version: '3'
 services: 
 
   web:
-    image: us.icr.io/bmorenos-smanagement/bmorenos/smanagement:nginx_http_server
+    image: nginx:latest
     deploy:
       replicas: 5
       restart_policy:
