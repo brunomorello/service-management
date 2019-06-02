@@ -4,7 +4,7 @@ $test = "Hello World!";
 
 $db = new PDO('mysql:host=database;dbname=smanagement;charset=utf8mb4', 'root', 'docker');
 
-$databaseTest = ($db->query('SELECT * FROM first_deploy'))->fetchAll(PDO::FETCH_OBJ);
+$databaseTest = ($db->query('SELECT * FROM employees'))->fetchAll(PDO::FETCH_OBJ);
 
 ?>
 
@@ -17,6 +17,7 @@ $databaseTest = ($db->query('SELECT * FROM first_deploy'))->fetchAll(PDO::FETCH_
     <title>Bruno Moreno - Service Management</title>
 </head>
 <body>
+
     <h1><?= $test ?></h1>
 
     <p>Docker + PHP + MYSQL + NGINX</p>
@@ -24,5 +25,6 @@ $databaseTest = ($db->query('SELECT * FROM first_deploy'))->fetchAll(PDO::FETCH_
     <? foreach ($databaseTest as $row): ?>
         <p>Hello, <?= $row->first_name ?></p>
     <? endforeach; ?>
+
 </body>
 </html>
