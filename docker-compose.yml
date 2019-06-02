@@ -1,0 +1,43 @@
+version: '3'
+
+services: 
+
+  web:
+    build: 
+      context: ./docker/nginx
+    # image: nginx:latest
+    # deploy:
+    #   replicas: 5
+    #   restart_policy:
+    #     condition: on-failure
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes: 
+      - ./src:/code
+      - ./docker/nginx/conf.d/site.conf:/etc/nginx/conf.d/default.conf
+    networks: 
+      - webnet
+
+  php:
+    build: ./docker/php 
+    volumes: 
+      - ./src:/code
+      - ./docker/php/conf/log.conf:/usr/local/etc/php-fpm.d/zz-log.conf
+    networks: 
+      - webnet
+
+  database:
+    build: ./docker/database
+    environment:
+      - MYSQL_DATABASE=smanagement
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=docker
+    volumes: 
+      - ./docker/database/smanagment-schema.sql:/docker-entrypoint-initdb.d/mysql-dump.sql
+    networks: 
+      - webnet
+
+networks:
+  webnet:
