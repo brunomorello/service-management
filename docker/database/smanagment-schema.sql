@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `employees` (
     `email` varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `employees`;
+LOCK TABLES `employees` WRITE;
 
 INSERT INTO `employees` VALUES('Bruno', 'Moreno', 'brunomorello7@gmail.com'), ('User1', 'Test', 'user1@test.com');
 
